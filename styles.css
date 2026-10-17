@@ -818,3 +818,6 @@ section{ padding-block: 56px; }
 .footer-logo{ display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .footer-logo .logo-tile img{ height: 48px; }
 .footer-logo .sub{ color: var(--text-on-dark); font-size: 0.95rem; letter-spacing: 0.06em; }
+
+.price-group{ font-size:1.15rem; margin:32px 0 12px; padding-left:12px; border-left:4px solid var(--amber, #f2a900); }
+.price-group:first-of-type{ margin-top:8px; }
