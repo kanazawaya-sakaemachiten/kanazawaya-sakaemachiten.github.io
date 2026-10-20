@@ -62,12 +62,28 @@
           <option>どちらも検討中</option>
         </select>
       </div>
-      <div class="field">
+      <div class="field" id="exp-single">
         <label for="r-exp">関連する経験</label>
         <select id="r-exp" name="関連する経験">
           <option>経験なし</option>
           <option>経験あり</option>
         </select>
+      </div>
+      <div id="exp-both" style="display:none;">
+        <div class="field">
+          <label for="r-exp-snow">除雪作業員の経験</label>
+          <select id="r-exp-snow" name="除雪作業員の経験" disabled>
+            <option>経験なし</option>
+            <option>経験あり</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="r-exp-pay">給与担当事務の経験</label>
+          <select id="r-exp-pay" name="給与担当事務の経験" disabled>
+            <option>経験なし</option>
+            <option>経験あり</option>
+          </select>
+        </div>
       </div>
       <div class="field">
         <label for="r-msg">ご質問・ご希望</label>

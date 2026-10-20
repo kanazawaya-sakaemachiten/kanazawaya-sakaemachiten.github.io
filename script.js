@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const lines = [form.dataset.intro || '', ''];
       form.querySelectorAll('[name]').forEach(f => {
+        if (f.disabled) return;
         const v = (f.value || '').trim();
         lines.push(`${f.name}：${v || '（未記入）'}`);
       });
@@ -174,3 +175,20 @@ document.addEventListener('DOMContentLoaded', () => {
   init();
   requestAnimationFrame(tick);
 })();
+
+// Recruit form: show per-position experience fields when "both" is chosen.
+document.addEventListener('DOMContentLoaded', () => {
+  const job = document.getElementById('r-job');
+  const single = document.getElementById('exp-single');
+  const both = document.getElementById('exp-both');
+  if (!job || !single || !both) return;
+  const sync = () => {
+    const isBoth = job.value === 'どちらも検討中';
+    single.style.display = isBoth ? 'none' : '';
+    both.style.display = isBoth ? '' : 'none';
+    single.querySelector('select').disabled = isBoth;
+    both.querySelectorAll('select').forEach(sel => { sel.disabled = !isBoth; });
+  };
+  job.addEventListener('change', sync);
+  sync();
+});
