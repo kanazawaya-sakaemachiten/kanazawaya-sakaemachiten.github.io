@@ -29,7 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Inquiry / application forms — no data is stored or sent anywhere.
-// The form composes the mail text; the visitor copies it or opens their mail app.
+// The form prepares the mail; the visitor opens their mail app (or copies as a fallback).
+// Designed for visitors who are not used to computers or smartphones:
+// one big primary button, plain wording, and a phone number as an alternative.
 document.addEventListener('DOMContentLoaded', () => {
   const forms = document.querySelectorAll('form[data-compose]');
   if (!forms.length) return;
@@ -39,16 +41,30 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.className = 'tel-confirm-overlay';
   overlay.innerHTML = `
     <div class="tel-confirm-box compose-box" role="dialog" aria-modal="true" aria-labelledby="compose-title">
-      <p id="compose-title" class="tel-confirm-title">メール本文ができました</p>
-      <p class="mail-confirm-note">宛先：<b class="compose-to"></b></p>
-      <textarea class="compose-text" readonly rows="8"></textarea>
-      <div class="tel-confirm-actions" style="flex-wrap:wrap;">
-        <button type="button" class="btn btn-outline compose-close" style="color:var(--text-on-light); border-color:var(--line-light);">閉じる</button>
-        <button type="button" class="btn btn-outline compose-copy-addr" style="color:var(--text-on-light); border-color:var(--line-light);">宛先をコピー</button>
-        <button type="button" class="btn btn-amber compose-copy">本文をコピー</button>
-      </div>
-      <p class="mail-confirm-note"><a class="compose-open" href="#" target="_blank" rel="noopener" style="text-decoration:underline;">メールアプリで開く</a>（開けない場合は、宛先と本文をコピーしてお使いください）</p>
+      <p id="compose-title" class="compose-title">メールの準備ができました</p>
+      <p class="compose-lead">下のオレンジ色のボタンを押すと、メールの画面が開きます。<br>宛先と内容は、入力済みです。<br>そのまま<b>「送信」</b>を押してください。</p>
+      <a class="btn btn-amber compose-open" href="#">✉️ メールの画面を開く</a>
+      <p class="compose-label">送られる内容</p>
+      <textarea class="compose-text" readonly rows="6"></textarea>
+      <details class="compose-help">
+        <summary>メールの画面が開かないときは</summary>
+        <ol>
+          <li>「宛先をコピー」を押して、お使いのメールの宛先に貼り付けます。</li>
+          <li>「内容をコピー」を押して、メールの本文に貼り付けます。</li>
+          <li>「送信」を押します。</li>
+        </ol>
+        <div class="compose-copy-row">
+          <button type="button" class="btn btn-outline compose-copy-addr">宛先をコピー</button>
+          <button type="button" class="btn btn-outline compose-copy">内容をコピー</button>
+        </div>
+        <p class="compose-to-line">宛先：<b class="compose-to"></b></p>
+      </details>
       <p class="mail-copy-status" aria-live="polite"></p>
+      <div class="compose-tel">
+        <p>うまくいかないときは、お電話でも受け付けています。</p>
+        <a href="tel:0117926525" class="btn btn-outline compose-tel-btn">📞 011-792-6525 に電話する</a>
+      </div>
+      <button type="button" class="btn btn-outline compose-close">閉じる</button>
     </div>`;
   document.body.appendChild(overlay);
 
@@ -71,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = document.createElement('textarea');
         t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
         document.body.appendChild(t); t.select();
-        document.execCommand('copy'); t.remove(); ok = true;
+        ok = document.execCommand('copy'); t.remove();
       } catch (e) { /* ignore */ }
     }
-    statusEl.textContent = ok ? okMsg : 'コピーできませんでした。直接ご選択ください。';
+    statusEl.textContent = ok ? okMsg : 'コピーできませんでした。お手数ですが、お電話でお問い合わせください。';
   }
 
   forms.forEach(form => {
@@ -90,13 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const subject = form.dataset.subject || '【お問い合わせ】';
       textEl.value = body;
       statusEl.textContent = '';
+      overlay.querySelector('.compose-help').open = false;
       openEl.href = `mailto:${MAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       overlay.classList.add('open');
+      openEl.focus();
     });
   });
 
-  overlay.querySelector('.compose-copy').addEventListener('click', () => copy(textEl.value, '本文をコピーしました。メールに貼り付けてください。'));
-  overlay.querySelector('.compose-copy-addr').addEventListener('click', () => copy(MAIL, '宛先をコピーしました。'));
+  overlay.querySelector('.compose-copy').addEventListener('click', () => copy(textEl.value, '内容をコピーしました。メールの本文に貼り付けてください。'));
+  overlay.querySelector('.compose-copy-addr').addEventListener('click', () => copy(MAIL, '宛先をコピーしました。メールの宛先に貼り付けてください。'));
   const close = () => overlay.classList.remove('open');
   overlay.querySelector('.compose-close').addEventListener('click', close);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });

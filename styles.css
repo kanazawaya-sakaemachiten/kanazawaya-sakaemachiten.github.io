@@ -836,3 +836,32 @@ section{ padding-block: 56px; }
 /* long e-mail addresses must wrap instead of overflowing on narrow screens */
 .info-row .value{ min-width: 0; flex: 1; overflow-wrap: anywhere; }
 .site-footer a{ overflow-wrap: anywhere; }
+
+/* ---------- Easy-to-use mail form (for visitors not used to PCs / phones) ---------- */
+.form-card .field label{ font-size: 0.95rem; }
+.form-card .field input, .form-card .field select, .form-card .field textarea{ font-size: 1rem; min-height: 48px; }
+.form-guide{ background: #FFF6E6; border: 1px solid #F0D9A8; border-radius: var(--radius-s); padding: 14px 16px; }
+.form-guide-title{ font-family: var(--font-head); font-weight: 700; color: #7A5312; margin-bottom: 6px; }
+.form-guide ol{ margin: 0; padding-left: 1.4em; display: grid; gap: 4px; font-size: 0.95rem; line-height: 1.6; list-style: decimal; }
+.form-card button.form-submit{ justify-self: stretch; width: 100%; font-size: 1.08rem; padding: 16px 20px; }
+.form-tel-help{ border-top: 1px dashed var(--line-light); padding-top: 14px; display: grid; gap: 8px; text-align: center; }
+.form-tel-help p{ font-size: 0.92rem; }
+.form-tel-btn, .compose-tel-btn{ color: var(--ink-navy) !important; border-color: var(--line-light) !important; justify-self: stretch; width: 100%; font-size: 1rem; padding: 14px 18px; }
+.form-tel-hours{ color: var(--text-muted); font-size: 0.82rem !important; }
+
+.compose-box{ max-width: 480px; width: 100%; max-height: calc(100vh - 40px); overflow-y: auto; display: grid; gap: 12px; }
+.compose-title{ font-family: var(--font-head); font-weight: 700; font-size: 1.25rem; color: var(--ink-navy); }
+.compose-lead{ font-size: 1rem; line-height: 1.75; color: var(--text-on-light); }
+.compose-open{ display: block; width: 100%; text-align: center; font-size: 1.1rem; padding: 16px 20px; }
+.compose-label{ font-size: 0.82rem; font-weight: 700; color: var(--text-muted); margin-bottom: -6px; }
+.compose-text{ margin-top: 0; }
+.compose-help{ border: 1px solid var(--line-light); border-radius: var(--radius-s); padding: 10px 14px; background: var(--paper); }
+.compose-help summary{ cursor: pointer; font-weight: 700; font-size: 0.95rem; color: var(--ink-navy); }
+.compose-help ol{ margin: 10px 0; padding-left: 1.4em; list-style: decimal; display: grid; gap: 4px; font-size: 0.92rem; line-height: 1.6; }
+.compose-copy-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.compose-copy-row .btn{ color: var(--ink-navy); border-color: var(--line-light); padding: 12px 10px; font-size: 0.92rem; cursor: pointer; background: #fff; }
+.compose-to-line{ font-size: 0.82rem; color: var(--text-muted); margin-top: 8px; overflow-wrap: anywhere; }
+.compose-tel{ border-top: 1px dashed var(--line-light); padding-top: 12px; display: grid; gap: 8px; text-align: center; font-size: 0.9rem; }
+.compose-close{ color: var(--text-on-light) !important; border-color: var(--line-light) !important; justify-self: center; cursor: pointer; background: transparent; }
+.mail-copy-status{ font-weight: 700; color: #1d6b3a; font-size: 0.92rem; }
+.mail-copy-status:empty{ display: none; }
