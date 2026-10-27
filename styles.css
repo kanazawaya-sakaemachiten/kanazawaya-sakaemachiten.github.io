@@ -821,3 +821,6 @@ section{ padding-block: 56px; }
 
 .price-group{ font-size:1.15rem; margin:32px 0 12px; padding-left:12px; border-left:4px solid var(--amber, #f2a900); }
 .price-group:first-of-type{ margin-top:8px; }
+
+.price-table{ table-layout: fixed; }
+.price-table th:first-child{ width: 55%; }
