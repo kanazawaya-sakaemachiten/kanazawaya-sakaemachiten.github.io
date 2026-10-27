@@ -832,3 +832,7 @@ section{ padding-block: 56px; }
   .price-table th, .price-table td{ padding: 12px 10px; font-size: 0.88rem; }
   .price-table th:first-child{ width: 52%; }
 }
+
+/* long e-mail addresses must wrap instead of overflowing on narrow screens */
+.info-row .value{ min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.site-footer a{ overflow-wrap: anywhere; }
