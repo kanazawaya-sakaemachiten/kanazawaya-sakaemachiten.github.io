@@ -42,8 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.innerHTML = `
     <div class="tel-confirm-box compose-box" role="dialog" aria-modal="true" aria-labelledby="compose-title">
       <p id="compose-title" class="compose-title">メールの準備ができました</p>
-      <p class="compose-lead">下のオレンジ色のボタンを押すと、メールの画面が開きます。<br>宛先と内容は、入力済みです。<br>そのまま<b>「送信」</b>を押してください。</p>
-      <a class="btn btn-amber compose-open" href="#">✉️ メールの画面を開く</a>
+      <p class="compose-lead">下のボタンを押すと、メールの画面が開きます。<br>宛先と内容は、入力済みです。<br>そのまま<b>「送信」</b>を押してください。</p>
+      <div class="compose-open-group">
+        <div class="compose-open-item">
+          <a class="btn btn-amber compose-open" href="#">✉️ メールアプリで開く</a>
+          <p class="compose-open-note">スマートフォンの方、パソコンでメールソフトをお使いの方</p>
+        </div>
+        <div class="compose-open-item">
+          <a class="btn btn-outline compose-gmail" href="#" target="_blank" rel="noopener">Gmailで開く</a>
+          <p class="compose-open-note">パソコンで、Gmail（ジーメール）をお使いの方</p>
+        </div>
+      </div>
       <p class="compose-label">送られる内容</p>
       <textarea class="compose-text" readonly rows="6"></textarea>
       <details class="compose-help">
@@ -72,7 +81,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const textEl = overlay.querySelector('.compose-text');
   const statusEl = overlay.querySelector('.mail-copy-status');
   const openEl = overlay.querySelector('.compose-open');
+  const gmailEl = overlay.querySelector('.compose-gmail');
   toEl.textContent = MAIL;
+  // On a computer, the "mail app" button only works if a mail program is set up.
+  // Many people use Gmail in the browser instead, so on computers we put the
+  // Gmail button first and make it the orange (main) button.
+  const isPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (!isPhone) {
+    const group = overlay.querySelector('.compose-open-group');
+    group.insertBefore(gmailEl.parentElement, group.firstChild);
+    gmailEl.classList.replace('btn-outline', 'btn-amber');
+    openEl.classList.replace('btn-amber', 'btn-outline');
+  }
 
   async function copy(text, okMsg) {
     let ok = false;
@@ -108,8 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
       statusEl.textContent = '';
       overlay.querySelector('.compose-help').open = false;
       openEl.href = `mailto:${MAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      gmailEl.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(MAIL)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       overlay.classList.add('open');
-      openEl.focus();
+      overlay.querySelector('.compose-open-group .btn').focus();
     });
   });
 

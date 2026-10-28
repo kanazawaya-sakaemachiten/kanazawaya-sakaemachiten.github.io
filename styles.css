@@ -865,3 +865,11 @@ section{ padding-block: 56px; }
 .compose-close{ color: var(--text-on-light) !important; border-color: var(--line-light) !important; justify-self: center; cursor: pointer; background: transparent; }
 .mail-copy-status{ font-weight: 700; color: #1d6b3a; font-size: 0.92rem; }
 .mail-copy-status:empty{ display: none; }
+
+.compose-open-group{ display: grid; gap: 12px; }
+.compose-open-item{ display: grid; gap: 4px; }
+.compose-gmail{ display: block; width: 100%; text-align: center; font-size: 1.1rem; padding: 16px 20px; }
+.compose-open-group .btn-outline{ color: var(--ink-navy); border-color: var(--line-light); }
+.compose-open-note{ font-size: 0.82rem; color: var(--text-muted); text-align: center; }
+
+.card .no-opening{ margin: 2px 0 8px; }
