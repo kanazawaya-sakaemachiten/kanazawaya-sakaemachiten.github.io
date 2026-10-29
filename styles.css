@@ -883,3 +883,7 @@ section{ padding-block: 56px; }
 .gmap-cap b{ display: block; color: var(--text-on-dark); font-family: var(--font-head); font-size: 1rem; margin-bottom: 2px; }
 .gmap-btn{ justify-self: start; }
 @media (max-width: 620px){ .gmap-btn{ justify-self: stretch; text-align: center; } }
+
+/* line break shown only on wider (PC) screens */
+@media (max-width: 780px){ br.pc-only{ display: none; } }
+@media (min-width: 781px){ .section-head-wide{ max-width: none; } }
