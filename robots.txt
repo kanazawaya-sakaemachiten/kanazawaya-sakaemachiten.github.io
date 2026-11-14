@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kanazawaya-sakaemachiten.github.io/sitemap.xml
